@@ -11,7 +11,7 @@ export const env = createEnv({
       process.env.NODE_ENV === "production"
         ? z.string()
         : z.string().optional(),
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -46,8 +46,8 @@ export const env = createEnv({
     AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     AWS_REGION: process.env.AWS_REGION,
-    S3_BUCKET_NAME: process.env.S3_BUCKET,
-    BACKEND_API_KEY: process.env.API_KEY,
+    S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
+    BACKEND_API_KEY: process.env.BACKEND_API_KEY,
     STYLETTS2_API_ROUTE: process.env.STYLETTS2_API_ROUTE,
     SEED_VC_API_ROUTE: process.env.SEED_VC_API_ROUTE,
     MAKE_AN_AUDIO_API_ROUTE: process.env.MAKE_AN_AUDIO_API_ROUTE,
