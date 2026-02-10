@@ -5,7 +5,7 @@ import { Inter } from "next/font/google"
 
 export const metadata: Metadata = {
   title: "ContentHelper",
-  description: "An app inspire from Elevenlabs Clone",
+  description: "An app inspire from Elevenlabs",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
