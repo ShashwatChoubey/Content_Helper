@@ -1,19 +1,17 @@
-/**
- * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
- * for Docker builds.
- */
 import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  typescript: {
-    // Uncomment the line below if you also want to ignore TypeScript errors during builds
-    // ignoreBuildErrors: true,
+  webpack: (config) => {
+    // Force webpack to use the correct Prisma Client location
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@prisma/client': require.resolve('@prisma/client'),
+    };
+    return config;
   },
 };
 
