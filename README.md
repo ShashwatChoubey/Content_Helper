@@ -1,95 +1,206 @@
 Content Helper
-A full-stack AI-powered audio generation platform
-Content Helper is a production-ready SaaS application that brings the power of AI audio generation to your fingertips. Inspired by ElevenLabs, it's built with a robust credit-based system, multi-model architecture, and enterprise-grade backend controls.
-🔗 Live Demo | GitHub Repository
+A Full-Stack AI-Powered Audio Generation Platform
 
-What Can It Do?
-Content Helper supports a complete suite of AI audio capabilities:
+Content Helper is a production-ready SaaS application that brings AI-powered audio generation into a scalable, credit-controlled platform.
+
+Inspired by ElevenLabs, this system is built with:
+
+Multi-model microservice architecture
+
+Backend-enforced credit validation
+
+Dockerized AI services
+
+Scalable cloud storage
+
+🔗 Live Demo: https://content-helper-u61q.vercel.app/
+
+🔗 GitHub Repository: https://github.com/ShashwatChoubey/Content_Helper
+
+🚀 Features
+
+Content Helper provides a complete suite of AI audio capabilities:
 
 Text-to-Speech – Convert written text into natural-sounding speech
+
 Speech-to-Speech – Transform voices while preserving the original message
-Music Generation – Create original music from text descriptions
+
+Music Generation – Create original music from text prompts
+
 Speech-to-Text – Transcribe audio into accurate text
 
-All features are powered by state-of-the-art AI models, managed through a credit system that ensures fair usage and prevents abuse.
+All features operate through a secure, backend-controlled credit system that ensures fair usage and prevents abuse.
 
-The Technology Behind It
-AI Models
-Each task leverages specialized, production-ready models:
-TaskModelWhy This Model?Text-to-SpeechStyleTTS2High-quality neural speech synthesis with customizable voice weightsSpeech-to-SpeechRVCIndustry-standard voice conversion with excellent quality-to-performance ratioMusic GenerationMusicGen SmallLightweight yet capable, optimized for CPU inferenceSpeech-to-TextWhisperOpenAI's robust transcription model with multi-language support
-All models run with pre-configured weights and are optimized for CPU-based inference, making deployment cost-effective without sacrificing quality.
-Architecture
-Content Helper follows a microservices architecture with strict separation of concerns:
+🧠 AI Models
+
+Each task uses a specialized, production-ready model:
+
+Task	Model	Why This Model?
+Text-to-Speech	StyleTTS2	High-quality neural speech synthesis with customizable voice weights
+Speech-to-Speech	RVC	Industry-standard voice conversion with strong quality-to-performance ratio
+Music Generation	MusicGen Small	Lightweight model optimized for CPU inference
+Speech-to-Text	Whisper	Robust multi-language transcription model
+
+All models run with preconfigured weights and are optimized for CPU-based inference, enabling cost-efficient deployment without requiring GPUs.
+
+🏗 Architecture
+
+Content Helper follows a microservices architecture with strict separation of concerns.
+
 User Request
-    ↓
+      ↓
 React Frontend (Vercel)
-    ↓
+      ↓
 TypeScript Backend (T3 Stack)
-    ├─ Credit Validation
-    ├─ Request Orchestration
-    └─ History Tracking
-    ↓
+      ├── Credit Validation
+      ├── Request Orchestration
+      └── History Tracking
+      ↓
 FastAPI Model Services (Dockerized)
-    ├─ Text-to-Speech Service
-    ├─ Speech-to-Speech Service
-    ├─ Music Generation Service
-    └─ Speech-to-Text Service
-    ↓
+      ├── Text-to-Speech Service
+      ├── Speech-to-Speech Service
+      ├── Music Generation Service
+      └── Speech-to-Text Service
+      ↓
 AWS S3 (Audio Storage)
-    ↓
+      ↓
 Prisma Database (PostgreSQL)
-Why This Architecture?
-1. Model Isolation
-Each AI model runs in its own containerized service. This means:
 
-Failures don't cascade across services
+🏛 Why This Architecture?
+1️⃣ Model Isolation
+
+Each AI model runs in its own containerized service.
+
+This ensures:
+
+Failures do not cascade
+
 Models can be updated independently
-Resource allocation is granular and efficient
+
+Resource allocation is controlled
+
 Dependency conflicts are eliminated
 
-2. Backend Authority
-The TypeScript backend acts as the single source of truth:
+2️⃣ Backend Authority
 
-Credits are validated and deducted server-side only
+The TypeScript backend is the single source of truth.
+
+Credits are validated and deducted server-side
+
 No client-side manipulation is possible
-All requests are authenticated and authorized
-Usage history is comprehensively tracked
 
-3. Scalable Storage
-AWS S3 handles all audio files:
+All requests are authenticated
 
-No large binary data in the database
-Infinite scalability for file storage
-Fast, reliable content delivery
-Simple reference via S3 keys in the database
+Full generation history is tracked
 
-4. Clean Data Model
+3️⃣ Scalable Storage
+
+AWS S3 is used for storing generated audio:
+
+No binary blobs stored in the database
+
+Virtually unlimited scalability
+
+Fast and reliable access
+
+Only S3 keys are stored in PostgreSQL
+
+4️⃣ Clean Relational Data Model
 Users Table
-├─ id (primary key)
-├─ email
-├─ credits
-└─ created_at
+
+id (Primary Key)
+
+email
+
+credits
+
+created_at
 
 Audio_History Table
-├─ id (primary key)
-├─ user_id (foreign key → Users)
-├─ task_type
-├─ s3_key
-├─ created_at
-└─ metadata
-This relational design ensures data integrity, proper user isolation, and efficient querying.
 
-Tech Stack
-LayerTechnologyPurposeFrontendReactModern, responsive UIBackendTypeScript (T3 Stack)Type-safe server logicDatabasePrisma + PostgreSQLRobust ORM with type safetyAI ServicesFastAPIHigh-performance Python APIsContainerizationDockerConsistent, isolated environmentsStorageAWS S3Scalable object storageModel HostingHugging Face SpacesReliable model deploymentFrontend HostingVercelFast, global CDN delivery
+id (Primary Key)
 
-Key Engineering Decisions
-Security & Control
-Backend-enforced credit system – All credit validation happens server-side, making client-side tampering impossible. This protects against abuse while maintaining a smooth user experience.
-Scalability
-One model, one container – Each AI model runs in isolation with its own FastAPI service and Docker container. This makes horizontal scaling straightforward when demand increases.
-Cost Efficiency
-CPU-optimized inference – All models are configured to run efficiently on CPU, enabling deployment on free-tier infrastructure without GPU costs.
-Maintainability
-Modular API structure – Each model has dedicated API files and endpoints, making debugging, updates, and feature additions simple and safe.
-Reliability
-S3-backed storage – Generated audio is stored in AWS S3 rather than the database, preventing storage bottlenecks and ensuring files are always accessible.
+user_id (Foreign Key → Users)
+
+task_type
+
+s3_key
+
+created_at
+
+metadata
+
+This relational structure ensures:
+
+Data integrity
+
+Proper user isolation
+
+Efficient queries
+
+Scalable history tracking
+
+🛠 Tech Stack
+Layer	Technology	Purpose
+Frontend	React	Modern responsive UI
+Backend	TypeScript (T3 Stack)	Type-safe server logic
+Database	Prisma + PostgreSQL	ORM with relational integrity
+AI Services	FastAPI	High-performance Python APIs
+Containerization	Docker	Isolated, consistent runtime
+Storage	AWS S3	Scalable object storage
+Model Hosting	Hugging Face Spaces	Reliable model deployment
+Frontend Hosting	Vercel	Global CDN delivery
+⚙️ Key Engineering Decisions
+🔐 Security & Control
+
+Backend-enforced credit system ensures no client-side tampering. All validation occurs server-side before inference execution.
+
+📈 Scalability
+
+One model = One container.
+This enables independent scaling and deployment of services.
+
+💰 Cost Efficiency
+
+All models are CPU-optimized to allow deployment on free-tier or low-cost infrastructure.
+
+🧩 Maintainability
+
+Modular FastAPI services and isolated containers simplify debugging and feature extension.
+
+📦 Reliability
+
+S3-backed storage prevents database bloat and ensures consistent access to generated audio files.
+
+
+📌 Future Improvements
+
+Queue-based processing for high concurrency
+
+Distributed locking for credit race-condition prevention
+
+GPU inference optimization
+
+Monitoring and observability layer
+
+Rate limiting
+
+Stripe billing integration
+
+Horizontal scaling for model services
+
+🎯 Project Goal
+
+This project demonstrates:
+
+Full-stack AI SaaS architecture
+
+Secure backend credit enforcement
+
+Multi-model orchestration
+
+Dockerized microservices
+
+Scalable cloud storage integration
+
+Production-oriented system design
